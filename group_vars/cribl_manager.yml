@@ -1,0 +1,22 @@
+---
+compose_vmware_tag_ansible_groups_cribl_manager:
+  cribl:
+    mounts:
+      app:
+        remote: "{{ nfs_server }}:/mnt/POOL_A/docker/cribl"
+        local: /mnt/cribl
+        container: /opt/cribl/config-volume
+    selinux: ":Z"
+    images:
+      app: "{{ docker_registry }}/cribl/cribl:3.1.0"
+    ports:
+      http:
+        protocol: tcp
+        host: 9000
+        container: 9000
+      heartbeat:
+        protocol: tcp
+        host: 4200
+        container: 4200
+    mode: master
+    manager_url: tcp://criblmaster@0.0.0.0:4200

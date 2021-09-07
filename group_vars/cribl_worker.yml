@@ -1,0 +1,28 @@
+---
+compose_vmware_tag_ansible_groups_cribl_worker:
+  cribl:
+    images:
+      app: "{{ docker_registry }}/cribl/cribl:3.1.0"
+    ports:
+      syslog_udp:
+        protocol: udp
+        host: 514
+        container: 9514
+      syslog_tcp:
+        protocol: tcp
+        host: 514
+        container: 9514
+      splunk:
+        protocol: tcp
+        host: 9997
+        container: 9997
+      snmp:
+        protocol: udp
+        host: 162
+        container: 9162
+      hec:
+        protocol: tcp
+        host: 8088
+        container: 8088
+    mode: worker
+    manager_url: tcp://criblmaster@cribl.balmerfamilyfarm.com:4200
